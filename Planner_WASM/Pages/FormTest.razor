@@ -1,79 +1,67 @@
 ﻿@page "/test"
 @using System.ComponentModel.DataAnnotations
-@inject HttpClient Http;
 
-<EditForm Model="@model" OnValidSubmit="OnValidSubmit">
-    <DataAnnotationsValidator />
-    <MudGrid>
-        <MudItem xs="12" sm="7">
-            <MudCard>
-                <MudCardContent>
-                    <MudTextField Label="First name" HelperText="Max. 8 characters"
-                    @bind-Value="model.Username" For="@(() => model.Username)" />
-                    <MudTextField Label="Email" Class="mt-3"
-                    @bind-Value="model.Email" For="@(() => model.Email)" />
-                    <MudTextField Label="Password" HelperText="Choose a strong password" Class="mt-3"
-                    @bind-Value="model.Password" For="@(() => model.Password)" InputType="InputType.Password" />
-                    <MudTextField Label="Password" HelperText="Repeat the password" Class="mt-3"
-                    @bind-Value="model.Password2" For="@(() => model.Password2)" InputType="InputType.Password" />
-                </MudCardContent>
-                <MudCardActions>
-                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Register</MudButton>
-                </MudCardActions>
-            </MudCard>
-        </MudItem>
-        <MudItem xs="12" sm="5">
-            <MudPaper Class="pa-4 mud-height-full">
-                <MudText Typo="Typo.subtitle2">Validation Summary</MudText>
-                @if (success)
-                {
-                    <MudText Color="Color.Success">Success</MudText>
-                }
-                else
-                {
-                    <MudText Color="@Color.Error">
-                        <ValidationSummary />
-                    </MudText>
-                }
-            </MudPaper>
-        </MudItem>
-        <MudItem xs="12">
-            <MudText Typo="Typo.body2" Align="Align.Center">
-                Fill out the form correctly to see the success message.
-            </MudText>
-        </MudItem>
-    </MudGrid>
+
+<EditForm Model="@testModel" OnValidSubmit="SubmitModel" OnInvalidSubmit="InvalidSubmit">
+    <MudTimePicker Label="Select starting time" AmPm="true" @bind-Time="testModel.TimeFrom"></MudTimePicker>
+    <MudTimePicker Label="Select end time" AmPm="true" @bind-Time="testModel.TimeTo"></MudTimePicker>
+    @if (!string.IsNullOrWhiteSpace(_timeError))
+    {
+        <MudAlert Severity="Severity.Error" Elevation="0">
+            @_timeError
+        </MudAlert>
+    }
+    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Tertiary" Class="ml-auto">Register</MudButton>
 </EditForm>
 
 
 @code {
-    RegisterAccountForm model = new RegisterAccountForm();
-    bool success;
+    TimeSlotModel testModel = new TimeSlotModel();
+    private string _timeError;
 
-    public class RegisterAccountForm
+
+    public class TimeSlotModel
     {
         [Required]
-        [StringLength(8, ErrorMessage = "Name length can't be more than 8.")]
-        public string Username { get; set; }
+        public TimeSpan? TimeFrom { get; set; }
 
         [Required]
-        [EmailAddress]
-        public string Email { get; set; }
+        public TimeSpan? TimeTo { get; set; }
 
-        [Required]
-        [StringLength(30, ErrorMessage = "Password must be at least 8 characters long.", MinimumLength = 8)]
-        public string Password { get; set; }
+        public ActivityType Activity { get; set; }
 
-        [Required]
-        [Compare(nameof(Password))]
-        public string Password2 { get; set; }
 
+        public override string ToString()
+        {
+            return $"Time from: {TimeFrom}, Time to: {TimeTo}, Activity: {Activity}";
+        }
     }
 
-    private void OnValidSubmit(EditContext context)
+    public enum ActivityType
     {
-        success = true;
-        Http.PostAsJsonAsync("test", model);
-        StateHasChanged();
+        Work,
+        Study,
+        Fitness,
+        Chores,
+        Fun,
+        Social,
+        Sleep
+    }
+
+    public void SubmitModel()
+    {
+        if(testModel.TimeFrom >= testModel.TimeTo)
+        {
+            _timeError = "Time from cannot be greater than Time to";
+            return;
+        }
+        _timeError = string.Empty;
+        Console.WriteLine(testModel);
+        
+    }
+
+    public void InvalidSubmit()
+    {
+        Console.WriteLine("That was invalid");
     }
 }
