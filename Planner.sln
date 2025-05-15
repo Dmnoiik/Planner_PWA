@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Planner_WASM", "Planner_WASM\Planner_WASM.csproj", "{2139948D-6B32-4646-8D47-FDA127E2C0FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Planner_API", "Planner_API\Planner_API.csproj", "{BCA5B578-2669-4811-AE24-B8CF62D358A0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2139948D-6B32-4646-8D47-FDA127E2C0FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2139948D-6B32-4646-8D47-FDA127E2C0FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2139948D-6B32-4646-8D47-FDA127E2C0FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2139948D-6B32-4646-8D47-FDA127E2C0FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCA5B578-2669-4811-AE24-B8CF62D358A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCA5B578-2669-4811-AE24-B8CF62D358A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCA5B578-2669-4811-AE24-B8CF62D358A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCA5B578-2669-4811-AE24-B8CF62D358A0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {62C4B206-604C-4374-A3BA-A72F2046644E}
+	EndGlobalSection
+EndGlobal
